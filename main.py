@@ -38,6 +38,7 @@ class PromptIn(BaseModel):
     prompt: str
     model: str = "z-ai/glm-4.5-air"
     session_id: str = "default"
+    max_tokens: int = 3000
 
 def summarize_conversation(messages, session_id):  # Removed async
     """Summarize conversation when it gets too long"""
@@ -119,7 +120,9 @@ def chat(body: PromptIn):  # Removed async
 
     payload = {
         "model": body.model,
-        "messages": messages  # Use the messages with conversation history
+        "messages": messages,  # Use the messages with conversation history
+        "max_tokens": body.max_tokens 
+
     }
 
     headers = {
